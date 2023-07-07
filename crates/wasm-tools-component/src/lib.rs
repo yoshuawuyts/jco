@@ -191,6 +191,7 @@ impl WasmTools for WasmToolsJs {
                     producers,
                     children,
                     range,
+                    registry_metadata: _,
                 } => {
                     let children_len = children.len();
                     for child in children {
@@ -207,6 +208,7 @@ impl WasmTools for WasmToolsJs {
                     name,
                     producers,
                     range,
+                    registry_metadata: _,
                 } => (name, producers, ModuleMetaType::Module, range),
             };
 

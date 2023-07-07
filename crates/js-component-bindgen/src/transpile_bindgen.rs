@@ -12,10 +12,11 @@ use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::fmt::Write;
 use std::mem;
 use wasmtime_environ::component::{
-    CanonicalOptions, Component, CoreDef, CoreExport, Export, ExportItem, GlobalInitializer,
+    self, CanonicalOptions, Component, CoreDef, CoreExport, Export, ExportItem, GlobalInitializer,
     InstantiateModule, LowerImport, RuntimeInstanceIndex, StaticModuleIndex, Transcoder,
 };
 use wasmtime_environ::{EntityIndex, ModuleTranslation, PrimaryMap};
+use wit_component::StringEncoding;
 use wit_parser::abi::{AbiVariant, LiftLower};
 use wit_parser::*;
 
@@ -565,7 +566,11 @@ impl Instantiator<'_, '_> {
             tmp: 0,
             params,
             post_return: post_return.as_ref(),
-            encoding: opts.string_encoding,
+            encoding: match opts.string_encoding {
+                component::StringEncoding::Utf8 => StringEncoding::UTF8,
+                component::StringEncoding::Utf16 => StringEncoding::UTF16,
+                component::StringEncoding::CompactUtf16 => StringEncoding::CompactUTF16,
+            },
             src: source::Source::default(),
         };
         self.resolve.call(
