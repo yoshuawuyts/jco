@@ -56,6 +56,8 @@ const streamEntries = {
   0: new IgnoreStream(),
   1: new NewlineBufferStream(console.log.bind(console)),
   2: new NewlineBufferStream(console.error.bind(console)),
+  3: new NewlineBufferStream(console.log.bind(console)),
+  4: new NewlineBufferStream(console.error.bind(console)),
 };
 
 export function _setStdout (stdout) {

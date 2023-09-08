@@ -113,10 +113,12 @@ export const streams = {
     switch (s) {
       case 0:
         throw new Error(`TODO: write stdin`);
+      case 3:
       case 1: {
         process.stdout.write(buf);
         return [BigInt(buf.byteLength), 'ended'];
       }
+      case 4:
       case 2: {
         process.stderr.write(buf);
         return [BigInt(buf.byteLength), 'ended'];
